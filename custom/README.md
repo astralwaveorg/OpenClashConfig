@@ -7,7 +7,20 @@
 | 路径 | 用途 |
 |---|---|
 | [`check.py`](./check.py) | ClashMainConfig.ini 深度检查工具，每次修改后必须运行 |
+| [`openclash-quick-update.sh`](./openclash-quick-update.sh) | 路由器端快速更新脚本（scp 到路由器 `/root/oc-quick-update.sh` 运行） |
 | [`rule/`](./rule/) | 新增分流规则源文件（格式与引用方式见其 README） |
+
+## 路由器快速更新
+
+模板推送后，在路由器上运行（或从电脑 `ssh root@10.0.1.1 'sh /root/oc-quick-update.sh'`）：
+
+```bash
+sh /root/oc-quick-update.sh [哨兵组名]   # 默认哨兵 WireGuard
+```
+
+流程：给模板地址追加时间戳参数绕过后端缓存 → 更新订阅 → 等配置生成 → 重启内核 → API 校验哨兵分组在线。
+
+已确认的坑：转换后端 api.asailor.org 会按 URL 缓存模板抓取结果（raw 源已更新但产物不变），时间戳参数是当前唯一可靠的绕过手段；模板地址 01（jsDelivr）另有约 12 小时 CDN 缓存，急用走 raw 地址。
 
 ## 修改流程（强制约定）
 
