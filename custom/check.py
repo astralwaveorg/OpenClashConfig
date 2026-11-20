@@ -254,6 +254,11 @@ class Checker:
                         self._fail(f"第 {no} 行：分组「{name}」成员正则无法编译：{e}（成员：{m[:60]}）")
             self.group_names.append(name)
             self.group_map[name] = fields[2:]
+            seen_members: set[str] = set()
+            for m in members:
+                if m in seen_members:
+                    self._fail(f"第 {no} 行：分组「{name}」成员「{m}」重复出现")
+                seen_members.add(m)
         counts: dict[str, int] = {}
         for _, s in cg_lines:
             t = s.split("`")[1] if "`" in s else "?"
