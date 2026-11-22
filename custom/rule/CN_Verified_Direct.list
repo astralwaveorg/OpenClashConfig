@@ -1,0 +1,8 @@
+# 从 mcxiaochenn/clash-rules-cn 的 direct-domain 中筛选。
+# 仅匹配核对过的主机；现有业务、GFW 与境外域名规则优先。
+DOMAIN,eco-push-api-client.meiqia.com
+DOMAIN,new-api.meiqia.com
+DOMAIN,www.123cha.com
+DOMAIN,www.2345.com
+DOMAIN,www.4paradigm.com
+DOMAIN,www.53kf.com
