@@ -17,11 +17,11 @@
 3. **正则语义验证**：新增/修改 filter 正则时，用样例节点名跑 Python 实测该进进的、不该进的不进，不凭肉眼。
 4. **diff 复查**：`git diff` 逐行读一遍，确认只有预期改动。
 5. **提交推送**（用户已默认授权，无需再问）：`git add cfg/ClashMainConfig.ini && git commit -m "feat(cfg): ..." && git push origin main`。消息用 conventional commits（feat/fix/refactor/docs/style(cfg)）。
-6. **落地路由器**：`zsh -ic 'ocupdate [哨兵组名]'`（本机 ~/.zshrc 已定义；等效 `ssh root@10.0.1.1 "sh /root/oc-quick-update.sh [哨兵]"`）。默认哨兵 WireGuard；改动涉及特定分组时用该组名做哨兵。脚本会自动给模板地址加时间戳破后端缓存 → 更新订阅 → 等配置生成 → 重启内核 → API 校验（全程约 10-30 秒，重启内核代理断几秒）。
+6. **落地路由器**：`zsh -ic 'ocupdate [检查分组名]'`（本机 ~/.zshrc 已定义；等效 `ssh root@10.0.1.1 "sh /root/oc-quick-update.sh [检查分组]"`）。默认检查分组 WireGuard：更新完成后内核里必须能找到它，找不到就说明新配置没生效。**只能验证「分组存在」，验证不了成员顺序**——纯链序改动用默认即可，顺序另按第 7 步核对。脚本会自动给模板地址加时间戳破后端缓存 → 更新订阅 → 等配置生成 → 重启内核 → 核对分组（全程约 10-30 秒，重启内核代理断几秒）。脚本副本在 `custom/oc-quick-update.sh`，刷固件覆盖层清空后从这里重新放回 `/root/`。
 7. **API 实测复核**（结构性改动必做）：
    ```bash
    ssh root@10.0.1.1 "SECRET=\$(uci -q get openclash.config.dashboard_password); curl -s -H \"Authorization: Bearer \$SECRET\" 'http://127.0.0.1:9090/proxies'" > /tmp/mihomo.json
-   python3 -I 解析 /tmp/mihomo.json 核对组数/链序/默认选中/哨兵分组存在
+   python3 -I 解析 /tmp/mihomo.json 核对组数/链序/默认选中/检查分组存在
    ```
 
 ## 模板语法速查（细节见 custom/README.md）
