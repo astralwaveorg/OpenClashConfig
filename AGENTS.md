@@ -44,5 +44,7 @@
 
 - 每次修改默认 commit+push+ocupdate，不用重复询问。
 - 改动交付说清：改了什么、验证证据（检查器+API 实测）、剩余影响。
-- 候选链设计惯例：AI 组=美国自建测速→家宽自动→日本自建测速→…（住宅 IP 风控加固）；主链=新加坡自建测速→美国自建测速→日本自建测速→…；谷歌统一走 🇬 谷歌服务（含 YouTube/Gemini/FCM）；Netflix/Disney+/HBO/PrimeVideo/DAZN/Viu 归 🇸🇬 新加坡媒体；Telegram/PT/非标端口/Steam/苹果/微软直连优先；隧道节点（路由/WireGuard/Mieru/Juicity/Tailscale）归 🚇 WireGuard 组（默认直连）并被自动选择/其他自动排除。
+- 候选链设计惯例（2026-11-25 更新）：AI 组（ChatGPT/Copilot/Claude/国外AI）=US自建优选(01/02/04)→JP测速→SG测速；主链 🚀 故障转移=US自建测速（含 03 快线）；**谷歌三分法**：Gemini→✨ Gemini（US自建优选，链式落地=66Cloud 出口）、YouTube→▶️ YouTube（US落地测速 01/02，大带宽）、其余谷歌→🇬 谷歌服务（US自建测速，含 03 快线）；GitHub/容器/开发者→US落地测速（长下载走 66Cloud）；PayPal/国外电商→US自建优选（账号风控类避开 03）；Grok 已并入国外AI（category-ai-!cn 含 xai，规则 64/64 顶格）；Netflix/Disney+/HBO/PrimeVideo/DAZN/Viu 归 🇸🇬 新加坡媒体；Telegram/PT/非标端口/Steam/苹果/微软直连优先；隧道节点（路由/WireGuard/Mieru/Juicity/Tailscale）归 🚇 WireGuard 组（默认直连）并被自动选择/其他自动排除。
+- 美线角色（2026-11-25）：`美国自建 01/02`=66Cloud 直连（大带宽）；`03`=SadIDC 快线直连（IP 一般，AI/账号类组必须排除）；`04`=SadIDC 链式（出口=66Cloud 优质 IP）。组正则按节点名编号排除（03 用 `(?!.*03)`、落地用 `(?!.*0[34])`），**面板改节点编号时必须同步模板正则**。
+- 路由器当前仅运行 `OpenClash.yaml`（本模板产物）；`/etc/openclash/config/MagicPanel.yaml` 如存在仅为历史保留，不参与生产。
 - 用户网络：电信线路；自建池带宽充足；美国自建 IP 质量最好、新加坡自建看流媒体、日本自建延迟好看但电信吞吐一般。
