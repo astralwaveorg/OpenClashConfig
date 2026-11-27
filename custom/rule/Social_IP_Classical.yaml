@@ -1,0 +1,4 @@
+# Keep Twitter/X and Facebook destination-IP fallbacks in one converter slot.
+payload:
+  - GEOIP,twitter,no-resolve
+  - GEOIP,facebook,no-resolve
